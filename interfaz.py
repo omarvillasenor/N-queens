@@ -15,6 +15,7 @@ class Principal(QMainWindow):
     def __init__(self):
         super(Principal, self).__init__()
         loadUi('interfaz.ui',self)
+        self.setFixedSize(self.width(),self.height())
         self.queens = 20
         self.iterations = 0
         self.individuos = 0
@@ -30,12 +31,29 @@ class Principal(QMainWindow):
         self.QueenBox.addItem("32")
         self.QueenBox.addItem("40")
         self.QueenBox.addItem("50")
-        self.IterBox.addItem("01000")
-        self.IterBox.addItem("02000")
-        self.IterBox.addItem("04000")
+        self.IterBox.addItem("1000")
+        self.IterBox.addItem("2000")
+        self.IterBox.addItem("2500")
+        self.IterBox.addItem("4000")
         self.IndBox.addItem("32")
+        self.IndBox.addItem("40")
+        self.IndBox.addItem("45")
         self.IndBox.addItem("50")
-        self.IndBox.addItem("70")
+        self.put_image()
+
+    def put_image(self):
+        path = self.get_path_for_image()
+        path = os.path.join(path, 'queen.jpg')
+        print(path)
+        width = self.image_label.frameGeometry().width() #X
+        height = self.image_label.frameGeometry().height() #Y
+        pixmap = QPixmap(path)
+        pixmap = pixmap.scaled(width,height,QtCore.Qt.KeepAspectRatio)
+        self.image_label.setPixmap(pixmap)
+
+    def get_path_for_image(self):
+        path = Path(os.getcwd())
+        return path
 
     def draw_map(self):
         self.StartButton.hide()
@@ -53,13 +71,10 @@ class Principal(QMainWindow):
 
     def draw_queens(self, board):
         self.close()
-        if self.queens >= 32:
-            size = 11
-        else:
-            size = 71
-        t_size = size * self.queens
         pg.init()
-        screen = pg.display.set_mode((t_size, t_size))
+        pg.display.set_caption("Queens")
+        screen = pg.display.set_mode((970, 970))
+        size = round(970 / self.queens)
         screen.fill((255,255,255))
         self.draw_board(screen, size-1, board)
         while True:
@@ -69,13 +84,19 @@ class Principal(QMainWindow):
             pg.display.flip()
 
     def draw_board(self,screen, space_size, board):
-        for fila,i in enumerate(range(0,900,space_size + 1)):
-           for columna,j in enumerate(range(0,900,space_size + 1)):
+        imagen = pg.image.load("dama.jpg")
+        imagen = pg.transform.scale(imagen, (space_size,space_size))
+        for fila,i in enumerate(range(0,970,space_size+1)):
+           for columna,j in enumerate(range(0,970,space_size+1)):
                if fila < self.queens and columna < self.queens:
                    if board[fila] == columna:
                        pg.draw.rect(screen,(145,68,2),pg.Rect(j, i, space_size, space_size), 0)
+                       screen.blit(imagen,(j,i))
                    else:
                        pg.draw.rect(screen,(234,186,144),pg.Rect(j, i, space_size,space_size), 0)
+    
+
+
 
 app = QApplication(sys.argv)
 ex2 = Principal()
