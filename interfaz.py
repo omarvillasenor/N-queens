@@ -73,8 +73,8 @@ class Principal(QMainWindow):
         self.close()
         pg.init()
         pg.display.set_caption("Queens")
-        screen = pg.display.set_mode((970, 970))
-        size = round(970 / self.queens)
+        screen = pg.display.set_mode((960, 960))
+        size = int(960 / self.queens)
         screen.fill((255,255,255))
         self.draw_board(screen, size-1, board)
         while True:
@@ -86,8 +86,8 @@ class Principal(QMainWindow):
     def draw_board(self,screen, space_size, board):
         imagen = pg.image.load("dama.jpg")
         imagen = pg.transform.scale(imagen, (space_size,space_size))
-        for fila,i in enumerate(range(0,970,space_size+1)):
-           for columna,j in enumerate(range(0,970,space_size+1)):
+        for fila,i in enumerate(range(0,960,space_size+1)):
+           for columna,j in enumerate(range(0,960,space_size+1)):
                if fila < self.queens and columna < self.queens:
                    if board[fila] == columna:
                        pg.draw.rect(screen,(145,68,2),pg.Rect(j, i, space_size, space_size), 0)

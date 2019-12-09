@@ -6,14 +6,11 @@ class Queen:
         self.queens = queens
         self.MIN_VALUE = 0
         self.MAX_VALUE = queens
-        self.good_list = []
         
     def get_size(self):
         return self.queens
                 
     def fitness(self,cromosome):
-        order_list = copy.deepcopy(cromosome)
-        order_list.sort()
         return self.check_crashes(cromosome)
 
     def check_crashes(self,cromosome):
