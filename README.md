@@ -10,9 +10,13 @@ Su temática es, dado un tablero de ajedrez de tamaño NxN, colocar N reinas de 
 Un ejemplo de ello, sería la configuración para un tablero de 4x4 como la siguiente:
 
 E R E E
+
 E E E R
+
 R E E E
+
 E E R E
+
 
 Donde cada espacio vacío es representado por la letra E y una reina por la letra R
 
